@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'FrontController@index');
+
+Auth::routes();
+
+Route::get('administration', function () {
+    return redirect()->action('SurveyController@index');
 });
+Route::resource('administration/survey', 'SurveyController')->middleware('auth');
+
+Route::post('/', 'FrontController@store');
