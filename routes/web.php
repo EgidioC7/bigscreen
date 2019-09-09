@@ -21,3 +21,6 @@ Route::get('administration', function () {
 Route::resource('administration/survey', 'SurveyController')->middleware('auth');
 
 Route::post('/', 'FrontController@store');
+
+Route::get('/{link}', 'FrontController@anwser');
+
