@@ -18,6 +18,8 @@ class CreateQuestionsTable extends Migration
             $table->string('title', 200);
             $table->enum('question_type', ['selector', 'text', 'number']);
             $table->string('choice');
+            $table->unsignedInteger('survey_id')->nullable();
+            $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('CASCADE'); 
             $table->timestamps();
         });
     }
