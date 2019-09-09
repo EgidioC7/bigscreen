@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
-use App\User;
+use App\UserSurvey;
+use App\Answer;
+use Illuminate\Support\Str;
 
 class FrontController extends Controller
 {
@@ -22,73 +24,78 @@ class FrontController extends Controller
      */
     public function store(Request $request)
     {
-        dump($request);
-
         $this->validate($request, [
-            'email' => 'required|email',
-            'description' => 'required',
-            'age' => 'required|numeric|between:0,99.99',
-            'input3' => 'required',
-            'optradio4' => 'required',
-            'input5' => 'required',
-            'input6' => 'required',
-            'input7' => 'required',
-            'input8' => 'required',
-            'optradio9' => 'required',
-            'input10' => 'required',
-            'optradio11' => 'required',
-            'optradio12' => 'required',
-            'optradio13' => 'required',
-            'optradio14' => 'required',
-            'optradio15' => 'required',
-            'input16' => 'required',
-            'input17' => 'required',
-            'input18' => 'required',
-            'input19' => 'required',
+            'question_1' => 'required|email',
+            'question_2' => 'required|numeric|between:0,99.99',
+            'question_3' => 'required',
+            'question_4' => 'required',
+            'question_5' => 'required',
+            'question_6' => 'required',
+            'question_7' => 'required',
+            'question_8' => 'required',
+            'question_9' => 'required',
+            'question_10' => 'required',
+            'question_11' => 'required',
+            'question_12' => 'required',
+            'question_13' => 'required',
+            'question_14' => 'required',
+            'question_15' => 'required',
+            'question_16' => 'required',
+            'question_17' => 'required',
+            'question_18' => 'required',
+            'question_19' => 'required',
+            'question_20' => 'required',
         ]);
-      
-      $email = $request->email;
-      dump($email);
-    
-      $user_id = User::select('id')->where('email', $email )->first();
 
-      if( is_null($user_id) ){
-        $user = new User();
-        $user->password = Hash::make($email_user);
-        $user->link = Hash::make($email_user);
-        $user->email = $email_user;
-        $user->name =  $email_user;
-        $user->role = 'subscriber';
-        $user->save();
+      $email_user = $request->question_1;
+      $survey_id = $request->survey_id;
+      $user_exist = UserSurvey::where('email', $email_user )->where('survey_id',$survey_id)->first();
+      if( is_null($user_exist) ){
+        $new_user = new UserSurvey();
+        $new_user->email = $email_user;
+        $new_user->link =  Str::uuid($email_user)->toString();
+        $new_user->survey_id = $survey_id;
+        $new_user->save();
       }
 
-      dump($exist_user);
+      foreach($request->all() as $key => $value){
+          if($key === '_token' || $key === 'survey_id' ){
+              continue;
+          }
+          else{
+                $key = str_replace('question_', '', $key);
+                if(!empty($user_exist)){
+                    $exist_answer = Answer::where('user_survey_id', $user_exist->id)->where('question_id',$key)->first();
+                    $exist_answer->update(['value' => $value]);
+                }
+                else{
+                    Answer::create([
+                        'question_id' => $key,
+                        'value' => $value,
+                        'user_survey_id' => $new_user->id,
+                    ]);
+                }
+          }
+      }
 
-      die('okok');
+      if(!is_null($user_exist)){
+        return redirect('/')->with('success', $user_exist->link);
+      }
+      else{
+        return redirect('/')->with('success', $new_user->link);
+      }
+    }
 
-     /*    $category_id = $request->category_id;
-        $category_name = Category::find($category_id)->title;
+    public function anwser($link){
 
-        if ($request->status_product == 'sold') {
+        $user = UserSurvey::where('link', $link)->first();
 
-            $salePrice = $request->price - ($request->price * (20 / 100));
-            $request->request->add(['salePrice' => $salePrice]);
+        if(empty($user)){
+            return redirect('/');
         }
-        $image = $request->file('picture');
 
-        if (!empty($image)) {
+        $answers = Answer::where('user_survey_id', $user->id)->get();
 
-            $link = $image->store(Str::plural($category_name));
-
-            $request->request->add(['image_url' => $link]);
-        }
-
-        $requestData = $request->all();
-
-        $requestData['size'] = serialize($request->size); */
-
-        //Answer::create($request->all());
-
-        //return redirect()->view('front.index')->with('message', 'success');
+        return view('front.show', ['answers' => $answers]);
     }
 }
