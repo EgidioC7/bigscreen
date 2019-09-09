@@ -16,8 +16,8 @@ class AlterAnswersTable extends Migration
         Schema::table('answers', function (Blueprint $table) {
             $table->unsignedInteger('question_id')->nullable();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('CASCADE'); 
-            $table->unsignedInteger('survey_id')->nullable();
-            $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('CASCADE');
+            $table->unsignedInteger('user_survey_id')->nullable();
+            $table->foreign('user_survey_id')->references('id')->on('user_suverys')->onDelete('CASCADE');
        
         });
     }
@@ -32,8 +32,8 @@ class AlterAnswersTable extends Migration
         Schema::table('answers', function (Blueprint $table) {
             $table->dropForeign('answers_question_id_foreign');
             $table->dropColumn('question_id');
-            $table->dropForeign('answers_survey_id_foreign');
-            $table->dropColumn('survey_id');
+            $table->dropForeign('answers_user_survey_id_foreign');
+            $table->dropColumn('user_survey_id');
         });
     }
 }
