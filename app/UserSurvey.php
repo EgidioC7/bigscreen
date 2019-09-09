@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserSurvey extends Model
 {
+    protected $fillable = [
+         'email', 'link', 'survey_id'
+    ];
+
     public function survey()
     {
         return $this->belongsTo(Survey::class);
