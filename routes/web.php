@@ -16,9 +16,12 @@ Route::get('/', 'FrontController@index');
 Auth::routes();
 
 Route::get('administration', function () {
-    return redirect()->action('SurveyController@index');
+    return redirect()->action('HomeController@index');
 });
-Route::resource('administration/survey', 'SurveyController')->middleware('auth');
+
+Route::resource('administration/dashboard', 'HomeController')->middleware('auth');
+
+Route::resource('administration/home', 'SurveyController')->middleware('auth');
 
 Route::post('/', 'FrontController@store');
 
