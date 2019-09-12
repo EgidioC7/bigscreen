@@ -17,7 +17,7 @@ class AlterAnswersTable extends Migration
             $table->unsignedInteger('question_id')->nullable();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('CASCADE'); 
             $table->unsignedInteger('user_survey_id')->nullable();
-            $table->foreign('user_survey_id')->references('id')->on('user_suverys')->onDelete('CASCADE');
+            $table->foreign('user_survey_id')->references('id')->on('user_surveys')->onDelete('CASCADE');
        
         });
     }
