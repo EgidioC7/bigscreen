@@ -19,6 +19,11 @@
 </div>
 @section('scripts')
     <script src="{{asset('js/app.js')}}"></script>
+    <script>
+        <?php if(Session::has('success')) : ?>
+            $('#myModal').modal('show');
+        <?php endif; ?>
+    </script>
 @show
 </body>
 </html>
