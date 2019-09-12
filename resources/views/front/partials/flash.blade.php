@@ -8,7 +8,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Voici le lien pour accéder au réponse de votre sondage :</p>
+        <p>Toute l'équipe de <strong>Bigscreen</strong> vous remercie pour votre engagement. Grâce à votre investissement, nous vous préparons une application toujours plus facile à utiliser, seul ou en famille
+        Si vous désirez consulter vos réponse ultérieurement, vous pouvez consulter cette adresse :</p>
         @if(Session::has('success'))
             <p><a href="{{url('/', Session::get('success'))}}">Cliquez ici</a></p>
         @endif
