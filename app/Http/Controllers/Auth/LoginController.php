@@ -26,7 +26,7 @@ class LoginController extends Controller
      * @var string
      */
     protected function redirectTo(){
-        return '/administration/survey';
+        return '/administration';
     } 
 
     /**
