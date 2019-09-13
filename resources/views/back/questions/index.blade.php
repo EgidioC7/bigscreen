@@ -7,7 +7,7 @@
     <div class="card">
 
         <div class="card-header" id="heading{{$survey->id}}">
-            <h5 class="mb-0">
+            <h5 class="mb-0 white">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{$survey->id}}"
                     aria-expanded="true" aria-controls="collapse{{$survey->id}}">
                     Sondage : <strong>{{$survey->name}} - {{$survey->created_at}}</strong>
@@ -18,7 +18,7 @@
         <div id="collapse{{$survey->id}}" class="collapse show" aria-labelledby="heading{{$survey->id}}"
             data-parent="#accordion">
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="white table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">Numéro de la question</th>

@@ -2,9 +2,9 @@
 
 @section('content')
 
-<p>Vous trouverez ci-dessous les réponses que vous avez apportées à notre sondage le {{$user_date}} </p>
+<p class="text-white text-center font-weight-bold text-uppercase px-3 small py-4 mb-0">Vous trouverez ci-dessous les réponses que vous avez apportées à notre sondage le {{$user_date}} </p>
 
-<table class="table table-bordered">
+<table class="white table table-bordered">
     <thead>
         <tr>
             <th scope="col">Numéro de la question</th>
