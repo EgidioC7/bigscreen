@@ -1,5 +1,100 @@
+body{
+  background:linear-gradient(45deg,#13225c 0,rgba(29,185,241,.59) 100%) !important;
+  font-family:GT-Walsheim-Pro-Bigscreen,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+h1,h2,h3,h4,h5,h6{
+  color:#13225c;
+  font-family:GT-Walsheim-Pro-Bigscreen,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+label{
+  color:rgb(29,185,241);
+}
+.white > *{
+  color:white !important;
+}
+.btn-info{
+  background-color: rgb(29,185,241) !important;
+  border:none !important;
+  color:white!important;
+}
 .error{
     color:red;
+}
+img{
+  max-width: 200px;
+}
+.card{
+  background : rgba(0, 0, 0, 0.1) !important;
+  margin:10px 0px;
+}
+
+.form-group{
+  background: #fafafa;
+  padding: 2%;
+  border-radius: 5px;
+}
+
+.radio label {
+  margin: 2em;
+  display: inline-block;
+  position: relative;
+  padding-left: 40px;
+  cursor: pointer;
+}
+
+.radio input {
+  height: 1px;
+  width: 1px;
+  opacity: 0;
+}
+
+.outside {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #13225c;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: none;
+}
+
+.inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: inline-block;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: rgb(29,185,241) ;
+  left: 3px;
+  top: 3px;
+  -webkit-transform: scale(0, 0);
+          transform: scale(0, 0);
+}
+.no-transforms .inside {
+  left: auto;
+  top: auto;
+  width: 0;
+  height: 0;
+}
+
+.radio input:checked + .outside .inside {
+  -webkit-animation: radio-select 0.1s linear;
+          animation: radio-select 0.1s linear;
+  -webkit-transform: scale(1, 1);
+          transform: scale(1, 1);
+}
+.no-transforms input:checked + .outside .inside {
+  width: 10px;
+  height: 10px;
 }
 
 /*
