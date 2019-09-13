@@ -87,8 +87,11 @@ class FrontController extends Controller
             return redirect('/');
         }
 
+        $date = new \DateTime($user->created_at);
+        $date_time = $date->format('d-m-Y à H:i:s');
+
         $answers = Answer::where('user_survey_id', $user->id)->get();
 
-        return view('front.show', ['answers' => $answers]);
+        return view('front.show', ['answers' => $answers, 'user_date' => $date_time]);
     }
 }
