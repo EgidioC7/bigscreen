@@ -13,25 +13,19 @@
 
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark font-italic <?php echo ( Str::contains(url()->current(), 'administration/dashboard') ) ? 'bg-light' : ''; ?>">
-                <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
-                Dashboard
-            </a>
-        </li>
-        <li class="nav-item">
             <a href="{{url('administration/home')}}" class="nav-link text-dark font-italic <?php echo ( Str::contains(url()->current(), 'administration/home') ) ? 'bg-light' : ''; ?>">
                 <i class="fa fa-chart-bar mr-3 text-primary fa-fw"></i>
                 Accueil
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark font-italic ">
+            <a href="{{url('administration/survey')}}" class="nav-link text-dark font-italic  <?php echo ( Str::contains(url()->current(), 'administration/survey') ) ? 'bg-light' : ''; ?> ">
                 <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
                 Questionnaire
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark font-italic">
+            <a href="{{url('administration/answer')}}" class="nav-link text-dark font-italic <?php echo ( Str::contains(url()->current(), 'administration/answer') ) ? 'bg-light' : ''; ?>">
                 <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
                 Réponses
             </a>
