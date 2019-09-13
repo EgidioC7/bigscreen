@@ -14,9 +14,13 @@ class SurveyTableSeeder extends Seeder
         DB::table('surveys')->insert(
             [
                 'name' => 'first',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'name' => 'second',
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         );
     }
