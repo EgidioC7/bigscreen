@@ -10,7 +10,7 @@
     <thead>
         <tr>
         <th scope="col">Numéro de la question</th>
-        <th scope="col">Questions</th>
+        <th scope="col">Corps de la question</th>
         <th scope="col">Réponses</th>
         </tr>
     </thead>
