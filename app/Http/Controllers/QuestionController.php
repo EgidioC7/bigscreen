@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Survey;
+use App\Question;
 
 class QuestionController extends Controller
 {
@@ -13,7 +15,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $survey = Survey::with('question')->get();
+
+        return view('back.questions.index', ['surveys' => $survey]);
     }
 
     /**
