@@ -5,19 +5,16 @@
 @include('front.partials.flash')
 
 <!-- Default form contact -->
-<form class="text-center border border-light p-5" method="POST" action="{{action('FrontController@store')}}">
+<p class="text-white text-center font-weight-bold text-uppercase px-3 small py-4 mb-0">Merci de répondre à toute les questions et de valider le formulaire en bas de page</p>
+<form class="text-center p-5" method="POST" action="{{action('FrontController@store')}}">
 
     {{ csrf_field() }}
 
-    <p class="h1 mb-4">Contact us</p>
-
-    <p>Merci de répondre à toute les questions et de valider le formulaire en bas de page</p>
-
     @foreach($questions as $question )
 
-    <div class="form-group">
+    <div class="form-group shadow border-0">
         <h4>Question {{$question->id}}/{{$question->count()}}</h4>
-        <label for="question_{{$question->id}}">{{$question->title}}</label>
+        <label for="question_{{$question->id}}"><strong>{{$question->title}}</strong></label>
         @if($question->question_type === 'text')
             @if($question->id === 1)
                 <input type="email" name="question_{{$question->id}}" id="question_{{$question->id}}" class="form-control mb-4" placeholder="E-mail"
@@ -48,7 +45,7 @@
             <div class="radio">
                 @for ($i = 1; $i <= 5; $i++) <label class="radio-inline">
                     <input type="radio" name="question_{{$question->id}}" value="{{$i}}" {{ ( old("question_".$question->id) != $i )
-                        ? ( ($i === 1) ? 'checked' : '' ) : 'checked' }} required>{{$i}}
+                        ? ( ($i === 1) ? 'checked' : '' ) : 'checked' }} required>{{$i}}<span class="outside"><span class="inside"></span></span>
                     </label>
                     @endfor
             </div>
