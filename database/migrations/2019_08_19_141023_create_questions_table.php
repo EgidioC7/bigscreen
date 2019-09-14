@@ -16,7 +16,7 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 200);
-            $table->enum('question_type', ['selector', 'text', 'number']);
+            $table->enum('question_type', ['A', 'B', 'C']);
             $table->string('choice');
             $table->unsignedInteger('survey_id')->nullable();
             $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('CASCADE'); 
