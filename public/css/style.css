@@ -1,6 +1,18 @@
-body{
+body {
+  background: #599fd9;
+  background: -webkit-linear-gradient(45deg,#13225c 0,rgba(29,185,241,.59) 100%) !important;
   background:linear-gradient(45deg,#13225c 0,rgba(29,185,241,.59) 100%) !important;
+  min-height: 100vh;
+  overflow-x: hidden;
   font-family:GT-Walsheim-Pro-Bigscreen,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.text-uppercase {
+  letter-spacing: 0.1em;
+}
+
+.text-gray {
+  color: #aaa;
 }
 h1,h2,h3,h4,h5,h6{
   color:#13225c;
@@ -9,7 +21,7 @@ h1,h2,h3,h4,h5,h6{
 label{
   color:rgb(29,185,241);
 }
-.white > *{
+.white *{
   color:white !important;
 }
 .btn-info{
@@ -26,6 +38,10 @@ img{
 .card{
   background : rgba(0, 0, 0, 0.1) !important;
   margin:10px 0px;
+}
+
+.card-white{
+  background:#fafafa !important;
 }
 
 .form-group{
@@ -148,33 +164,4 @@ img{
       margin-left: 17rem;
       width: calc(100% - 17rem);
     }
-  }
-  
-  /*
-  *
-  * ==========================================
-  * FOR DEMO PURPOSE
-  * ==========================================
-  *
-  */
-  
-  body {
-    background: #599fd9;
-    background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
-    background: linear-gradient(to right, #599fd9, #c2e59c);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  
-  .separator {
-    margin: 3rem 0;
-    border-bottom: 1px dashed #fff;
-  }
-  
-  .text-uppercase {
-    letter-spacing: 0.1em;
-  }
-  
-  .text-gray {
-    color: #aaa;
   }
