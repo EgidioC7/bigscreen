@@ -64,6 +64,32 @@ class HomeController extends Controller
 
         return view('back.answers.index', ['user_surveys' => $user_surveys]);
     }
+    public function random_color($value){
+
+        $random = [];
+
+        for($i = 0; $i < $value; $i++) {
+            $hex = '#';
+    
+  
+            //Create a loop.
+            foreach(array('r', 'g', 'b') as $color){
+                //Random number between 0 and 255.
+                $val = mt_rand(0, 255);
+                //Convert the random number into a Hex value.
+                $dechex = dechex($val);
+                //Pad with a 0 if length is less than 2.
+                if(strlen($dechex) < 2){
+                    $dechex = "0" . $dechex;
+                }
+                //Concatenate
+                $hex .= $dechex;
+            }
+
+              $random[$i] = $hex;
+        }
+        return $random;
+        }
 
     public function pieChart(int $question_id){
         $all_chart_data = [];
@@ -84,6 +110,8 @@ class HomeController extends Controller
             }
         }
 
+        $random_color = $this->random_color(count($pie_chart['data']));
+
         $chartjs = app()->chartjs
         ->name("question_$question_id")
         ->type('pie')
@@ -91,12 +119,24 @@ class HomeController extends Controller
         ->labels($pie_chart['label'])
         ->datasets([
             [
-                'backgroundColor' => ['#FF6384', '#36A2EB'],
-                'hoverBackgroundColor' => ['#FF6384', '#36A2EB'],
+                'backgroundColor' => $random_color,
+                'hoverBackgroundColor' => $random_color,
                 'data' => array_values($pie_chart['data'])
             ]
         ])
-        ->options([]);
+        ->optionsRaw([
+        'scale' => [
+            'pointLabels' => [
+              'fontSize' => 18
+        ]
+            ],
+          'legend' => [
+            'position' => 'left',
+            'labels' => [
+                'fontColor' => '#fafafa'
+            ]
+          ]
+          ]);
 
         $all_chart_data = ['chart' => $chartjs, 'title' => $question->title];
 
@@ -132,7 +172,7 @@ class HomeController extends Controller
         ->labels($pie_chart['label'])
         ->datasets([
             [
-                "label" => "My First dataset",
+                "label" => "Nombre de points",
                 'backgroundColor' => "rgba(38, 185, 154, 0.31)",
                 'borderColor' => "rgba(38, 185, 154, 0.7)",
                 "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
@@ -142,7 +182,24 @@ class HomeController extends Controller
                 'data' => array_values($pie_chart['data'])
             ]
         ])
-        ->options([]);
+        ->optionsRaw([
+            'scale' => [
+                'ticks' => [
+                  'beginAtZero' => true,
+                  'min' => 0,
+                  'stepSize'=> 1
+                ],
+                'pointLabels' => [
+                  'fontSize' => 18
+            ]
+                ],
+              'legend' => [
+                'position' => 'left',
+                'labels' => [
+                    'fontColor' => '#fafafa'
+                ]
+              ]
+              ]);
 
         $all_chart_data = ['chart' => $chartjs, 'title' => $question->title];
 
