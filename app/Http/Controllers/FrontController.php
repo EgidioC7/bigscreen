@@ -14,8 +14,9 @@ class FrontController extends Controller
     public function index()
     {
         $survey = Survey::all();
-        if(count($survey) === 1){
-            return $this->survey(reset($survey)->id);
+      
+        if(1 === count($survey)){
+            return $this->survey($survey[0]->id);
         }
 
         return view('front.index', ['surveys' => $survey]);
