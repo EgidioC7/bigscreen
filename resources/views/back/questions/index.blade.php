@@ -4,7 +4,7 @@
 @section('content')
 <div id="accordion">
     @foreach($surveys as $survey)
-    <div class="card">
+    <div class="card space">
 
         <div class="card-header" id="heading{{$survey->id}}">
             <h5 class="mb-0 white">
@@ -38,6 +38,7 @@
                 </table>
             </div>
         </div>
-        @endforeach
     </div>
-    @endsection
+    @endforeach
+</div>
+@endsection
