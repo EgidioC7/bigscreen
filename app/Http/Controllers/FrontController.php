@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Question;
 use App\UserSurvey;
+use App\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -12,9 +13,29 @@ class FrontController extends Controller
 {
     public function index()
     {
-        $questions = Question::all();
+        $survey = Survey::all();
+        if(count($survey) === 1){
+            return $this->survey(reset($survey)->id);
+        }
 
-        return view('front.index', ['questions' => $questions]);
+        return view('front.index', ['surveys' => $survey]);
+    }
+
+    public function survey($data_survey){
+
+        if(intval($data_survey)){
+            $survey = Survey::find($data_survey);
+        } else{
+            $survey = Survey::where('name', $data_survey)->first();
+        }
+
+        if(empty($survey)){
+            return redirect('/');
+        }
+      
+        $questions = Question::where('survey_id', $survey->id)->get();
+
+        return view('front.survey', ['questions' => $questions, 'survey' => $survey]);
     }
 
     /**
