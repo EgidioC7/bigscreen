@@ -11,17 +11,17 @@ class SurveyTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('surveys')->insert(
+        DB::table('surveys')->insert([
             [
                 'name' => 'first',
-                'created_at' => now(),
-                'updated_at' => now()
+                'created_at' => '2019-09-13 01:49:17',
+                'updated_at' => '2019-09-13 01:49:17'
             ],
             [
                 'name' => 'second',
                 'created_at' => now(),
                 'updated_at' => now()
             ]
-        );
+        ]);
     }
 }
