@@ -7,7 +7,6 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Bigscreen') }}</title>
 
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}"/>
@@ -53,7 +52,7 @@
 
     </div>
 @endif
-
+<div id='app'></div>
 @section('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
