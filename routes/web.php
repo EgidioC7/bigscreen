@@ -27,7 +27,7 @@ Route::get('administration/reponses', 'HomeController@show_answers');
 
 Route::post('/', 'FrontController@store');
 
-Route::get('/sondage/{link}', 'FrontController@anwser');
+Route::get('/reponse/{link}', 'FrontController@anwser');
 
-Route::get('/{data_survey}', 'FrontController@survey');
+Route::get('/sondage/{data_survey}', 'FrontController@survey');
 

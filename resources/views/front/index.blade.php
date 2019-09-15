@@ -11,7 +11,7 @@
                         <h2 class="card-title">Sondage {{$survey->name}}</h2>
                     </div>
                     <div class="card-footer">
-                        <a href="{{url('/',$survey->name)}}" class="btn btn-primary btn-sm">Accéder au sondage</a>
+                        <a href="{{url('/sondage',$survey->name)}}" class="btn btn-primary btn-sm">Accéder au sondage</a>
                     </div>
                 </div>
             </div>
