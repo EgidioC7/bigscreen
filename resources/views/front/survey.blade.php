@@ -4,14 +4,15 @@
 
 <!-- Default form contact -->
 <p class="text-white text-center font-weight-bold text-uppercase px-3 small py-4 mb-0">Merci de répondre à toute les questions et de valider le formulaire en bas de page</p>
+
 <form class="text-center p-5" method="POST" action="{{action('FrontController@store')}}">
 
     {{ csrf_field() }}
 
-    @foreach($questions as $question )
+    @foreach($survey->question as $question )
 
     <div class="form-group shadow border-0">
-        <h4>Question {{$question->id}}/{{$question->count()}}</h4>
+        <h4>Question {{$question->id}}/{{$count}}</h4>
         <label for="question_{{$question->id}}"><strong>{{$question->title}}</strong></label>
         @if($question->question_type === 'B')
             @if($question->id === 1)
@@ -49,9 +50,10 @@
             </div>
         @endif
     </div>
-    <input type="hidden" name="survey_id" class="form-control mb-4" value="{{$question->survey_id}}">
+    
     @endforeach
 
+    <input type="hidden" name="survey_id" class="form-control mb-4" value="{{$survey->id}}">
     <!-- Send button -->
     <button class="btn btn-info btn-block" type="submit">Finaliser</button>
 
