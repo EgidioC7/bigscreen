@@ -10,10 +10,10 @@
             <div class="modal-body">
                 <p>Toute l'équipe de <strong>Bigscreen</strong> vous remercie pour votre engagement. Grâce à votre
                     investissement, nous vous préparons une application toujours plus facile à utiliser, seul ou en
-                    famille
-                    Si vous désirez consulter vos réponse ultérieurement, vous pouvez consulter cette adresse :</p>
+                    famille.</p>
+                    <p>Si vous désirez consulter vos réponse ultérieurement, vous pouvez consulter cette adresse :</p>
                 @if(Session::has('success'))
-                    <p><a href="{{url('/sondage', Session::get('success'))}}">Cliquez ici</a></p>
+                    <p><a href="{{url('/sondage', Session::get('success'))}}">{{url('/sondage', Session::get('success'))}}</a></p>
                 @endif
             </div>
             <div class="modal-footer">
