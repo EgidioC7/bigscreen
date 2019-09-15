@@ -7,9 +7,11 @@ use App\Question;
 use App\Answer;
 use App\UserSurvey;
 use App\Survey;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
+    public $prefix_;
     /**
      * Create a new controller instance.
      *
@@ -18,6 +20,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->prefix_ = request()->page ?? 'home';
     }
 
     /**
@@ -29,16 +32,29 @@ class HomeController extends Controller
     {
         $questions_title = [];
 
-        $question_chart_6 = $this->pieChart(6);
+        $path_6 = 'chart6_' . $this->prefix_;
+        $question_chart_6 = Cache::remember($path_6, 60 * 24, function () {
+            return $this->pieChart(6);
+        });
         $pie_chart_6 = $question_chart_6['chart'];
  
-        $question_chart_7 = $this->pieChart(7);
+        $path_7 = 'chart7_' . $this->prefix_;;
+        $question_chart_7 = Cache::remember($path_7, 60 * 24, function () {
+            return $this->pieChart(7);
+        });
         $pie_chart_7 = $question_chart_7['chart'];
- 
-        $question_chart_10 = $this->pieChart(10);
+
+        $path_10 = 'chart10_' . $this->prefix_;
+        $question_chart_10 = Cache::remember($path_10, 60 * 24, function () {
+            return $this->pieChart(10);
+        });
         $pie_chart_10 = $question_chart_10['chart'];
- 
-        $question_chart_11 = $this->radarChart(11);
+
+        $path_11 = 'chart11_' . $this->prefix_;
+        $question_chart_11 = Cache::remember($path_11, 60 * 24, function () {
+            return $this->radarChart(['11','12','13','14','15']);
+        });
+
         $pie_chart_11 = $question_chart_11['chart'];
        
       $questions_title = [
@@ -54,13 +70,22 @@ class HomeController extends Controller
 
     public function show_questions()
     {
-        $survey = Survey::with('question')->get();
+        $path = 'survey_'.$this->prefix_;
+
+        $survey = Cache::remember($path, 60 * 24, function () {
+            return Survey::with('question')->get();
+        });
 
         return view('back.questions.index', ['surveys' => $survey]);
     }
 
     public function show_answers(){
-        $user_surveys = UserSurvey::with('answer')->get();
+
+        $path = 'answer_'.$this->prefix_;
+
+        $user_surveys = Cache::remember($path, 60 * 24, function () {
+            return UserSurvey::with('answer.question')->get();
+        });
 
         return view('back.answers.index', ['user_surveys' => $user_surveys]);
     }
@@ -90,6 +115,23 @@ class HomeController extends Controller
         }
         return $random;
         }
+
+        public function random_rgba(){
+            $rgbColor = [];
+ 
+            //Create a loop.
+            foreach(['r', 'g', 'b','o'] as $color){
+                if($color === 'o'){
+                    $rgbColor[$color] = floatVal('0.'.rand(1, 99));
+                }
+                else{
+                //Generate a random number between 0 and 255.
+                $rgbColor[$color] = mt_rand(0, 255);
+                }
+            }
+            return 'rgba('.implode(",",$rgbColor).')';
+        }
+
 
     public function pieChart(int $question_id){
         $all_chart_data = [];
@@ -143,45 +185,53 @@ class HomeController extends Controller
         return $all_chart_data;
     }
 
-    public function radarChart(int $question_id){
+    public function radarChart(array $question_id){
         $all_chart_data = [];
         $question = Question::find($question_id);
-        $answers = Answer::where('question_id', $question_id)->get();
-        
-        $pie_chart = [];
+        $answers = Answer::with('question')->whereIn('question_id', $question_id)->get();
+  
+        $radar_chart = [];
+
+        $radar_data = [];
 
         for($i=1; $i<=5; $i++){
-            $pie_chart['label'][] = $i;
+            $radar_chart['label'][] = $i;
         }
        
-        foreach($pie_chart['label'] as $label){
-            $pie_chart['data'][$label] = 0;
+        for($i = reset($question_id); $i <= end($question_id); $i++){
+            foreach($radar_chart['label'] as $label){
+                $radar_chart['data'][$i][$label] = 0;
+            }
         }
         
-        foreach($answers as $answer){
-        $search_value = array_search($answer->value, $pie_chart['label']);
-            if($search_value !== false){
-                $pie_chart['data'][$answer->value] += 1;
+        for($i = reset($question_id); $i <= end($question_id); $i++){
+            foreach($answers as $answer){
+                if($answer->question->id === (int) $i){
+                    $search_value = array_search($answer->value, $radar_chart['label']);
+                    if($search_value !== false){
+                        $radar_chart['data'][$i][$answer->value] += 1;
+                    }
+                }
             }
+            $random_rgba = $this->random_rgba();
+
+            $radar_data[] =  [
+                "label" => "Question $i",
+                'borderColor' => "$random_rgba",
+                "pointBorderColor" => "$random_rgba",
+                "pointBackgroundColor" => "$random_rgba",
+                "pointHoverBackgroundColor" => "#fff",
+                "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                'data' => array_values($radar_chart['data'][$i])
+            ];
         }
 
         $chartjs = app()->chartjs
-        ->name("question_$question_id")
+        ->name("question_radar")
         ->type('radar')
         ->size(['width' => 750, 'height' => 700])
-        ->labels($pie_chart['label'])
-        ->datasets([
-            [
-                "label" => "Nombre de points",
-                'backgroundColor' => "rgba(38, 185, 154, 0.31)",
-                'borderColor' => "rgba(38, 185, 154, 0.7)",
-                "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                "pointHoverBackgroundColor" => "#fff",
-                "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                'data' => array_values($pie_chart['data'])
-            ]
-        ])
+        ->labels($radar_chart['label'])
+        ->datasets($radar_data)
         ->optionsRaw([
             'scale' => [
                 'ticks' => [
@@ -190,7 +240,8 @@ class HomeController extends Controller
                   'stepSize'=> 1
                 ],
                 'pointLabels' => [
-                  'fontSize' => 18
+                  'fontSize' => 18,
+                  'fontColor' => "#fafafa"
             ]
                 ],
               'legend' => [
@@ -201,8 +252,8 @@ class HomeController extends Controller
               ]
               ]);
 
-        $all_chart_data = ['chart' => $chartjs, 'title' => $question->title];
-
+        $all_chart_data = ['chart' => $chartjs, 'title' => 'Question de 11 à 15'];
+    
         return $all_chart_data;
     }
 
