@@ -16,7 +16,7 @@
         @foreach($answers as $answer )
         <tr>
             <th scope="row">{{$answer->question_id}}</th>
-            <td>{{$answer->getQuestionTitle()}}</td>
+            <td>{{$answer->question->title}}</td>
             <td>{{$answer->value}}</td>
         </tr>
         @endforeach
