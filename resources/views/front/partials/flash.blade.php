@@ -13,7 +13,7 @@
                     famille
                     Si vous désirez consulter vos réponse ultérieurement, vous pouvez consulter cette adresse :</p>
                 @if(Session::has('success'))
-                <p><a href="{{url('/sondage', Session::get('success'))}}">Cliquez ici</a></p>
+                    <p><a href="{{url('/sondage', Session::get('success'))}}">Cliquez ici</a></p>
                 @endif
             </div>
             <div class="modal-footer">

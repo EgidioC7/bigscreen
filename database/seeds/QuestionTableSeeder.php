@@ -69,7 +69,7 @@ class QuestionTableSeeder extends Seeder
             [
                 'title' => 'Vous utilisez principalement Bigscreen pour :',
                 'question_type' => 'A',
-                'choice' => serialize(['regarder des émissions TV en direct', 'regarder des films','jouer en solo', 'jouer en team']),
+                'choice' => serialize(['regarder des émissions TV en direct', 'regarder des films', 'jouer en solo', 'jouer en team']),
                 'survey_id' => 1
             ],
             [

@@ -15,26 +15,27 @@ class FrontController extends Controller
     public function index()
     {
         $survey = Survey::all();
-      
-        if(1 === count($survey)){
+
+        if (1 === count($survey)) {
             return $this->survey($survey[0]->id);
         }
 
         return view('front.index', ['surveys' => $survey]);
     }
 
-    public function survey($data_survey){
+    public function survey($data_survey)
+    {
 
-        if(intval($data_survey)){
-            $survey = Survey::where('id',$data_survey)->with('question')->first();
-        } else{
+        if (intval($data_survey)) {
+            $survey = Survey::where('id', $data_survey)->with('question')->first();
+        } else {
             $survey = Survey::where('name', $data_survey)->with('question')->first();
         }
 
-        if(empty($survey)){
+        if (empty($survey)) {
             return redirect('/');
         }
-      
+
         $questions = Question::where('survey_id', $survey->id)->count();
 
         return view('front.survey', ['count' => $questions, 'survey' => $survey]);
@@ -99,28 +100,27 @@ class FrontController extends Controller
             }
         }
 
-        if (Cache::has('survey_home') ) {
+        if (Cache::has('survey_home')) {
             Cache::pull('survey_home');
         }
-        if(Cache::has('answer_home')){
+        if (Cache::has('answer_home')) {
             Cache::pull('answer_home');
         }
-        if(Cache::has('chart6_home')){
+        if (Cache::has('chart6_home')) {
             Cache::pull('chart6_home');
         }
-        if(Cache::has('chart7_home')){
+        if (Cache::has('chart7_home')) {
             Cache::pull('chart7_home');
         }
-        
-        if(Cache::has('chart10_home')){
+
+        if (Cache::has('chart10_home')) {
             Cache::pull('chart10_home');
         }
 
-        if(Cache::has('chart11_home')){
+        if (Cache::has('chart11_home')) {
             Cache::pull('chart11_home');
         }
-        
-        
+
 
         return redirect('/')->with('success', $new_user->link);
     }
