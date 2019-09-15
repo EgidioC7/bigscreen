@@ -30,7 +30,7 @@
                         @foreach($user_survey->answer as $data )
                         <tr>
                             <th scope="row">{{$data->question_id}}</th>
-                            <td>{{$data->getQuestionTitle()}}</td>
+                            <td>{{$data->question->title}}</td>
                             <td>{{$data->value}}</td>
                         </tr>
                         @endforeach
