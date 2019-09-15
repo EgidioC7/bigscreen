@@ -13,22 +13,22 @@
 
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
-            <a href="{{url('administration/home')}}"
-               class="nav-link text-dark font-italic <?php echo (Str::contains(url()->current(), 'administration/home')) ? 'bg-light' : ''; ?>">
+            <a href="{{url('administration/accueil')}}"
+               class="nav-link text-dark font-italic <?php echo (Str::contains(url()->current(), 'administration/accueil')) ? 'bg-light' : ''; ?>">
                 <i class="fa fa-home mr-3 text-primary fa-fw"></i>
                 Accueil
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url('administration/survey')}}"
-               class="nav-link text-dark font-italic  <?php echo (Str::contains(url()->current(), 'administration/survey')) ? 'bg-light' : ''; ?> ">
+            <a href="{{url('administration/questionnaire')}}"
+               class="nav-link text-dark font-italic  <?php echo (Str::contains(url()->current(), 'administration/questionnaire')) ? 'bg-light' : ''; ?> ">
                 <i class="fa fa-question mr-3 text-primary fa-fw"></i>
                 Questionnaire
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url('administration/answer')}}"
-               class="nav-link text-dark font-italic <?php echo (Str::contains(url()->current(), 'administration/answer')) ? 'bg-light' : ''; ?>">
+            <a href="{{url('administration/reponses')}}"
+               class="nav-link text-dark font-italic <?php echo (Str::contains(url()->current(), 'administration/reponses')) ? 'bg-light' : ''; ?>">
                 <i class="fa fa-comment-dots mr-3 text-primary fa-fw"></i>
                 Réponses
             </a>

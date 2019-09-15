@@ -19,11 +19,11 @@ Route::get('administration', function () {
     return redirect()->action('HomeController@index');
 });
 
-Route::resource('administration/home', 'HomeController')->middleware('auth');
+Route::resource('administration/accueil', 'HomeController')->middleware('auth');
 
-Route::get('administration/survey', 'HomeController@show_questions');
+Route::get('administration/questionnaire', 'HomeController@show_questions');
 
-Route::get('administration/answer', 'HomeController@show_answers');
+Route::get('administration/reponses', 'HomeController@show_answers');
 
 Route::post('/', 'FrontController@store');
 
