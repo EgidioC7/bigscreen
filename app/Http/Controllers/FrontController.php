@@ -8,6 +8,7 @@ use App\UserSurvey;
 use App\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class FrontController extends Controller
 {
@@ -25,18 +26,18 @@ class FrontController extends Controller
     public function survey($data_survey){
 
         if(intval($data_survey)){
-            $survey = Survey::find($data_survey);
+            $survey = Survey::where('id',$data_survey)->with('question')->first();
         } else{
-            $survey = Survey::where('name', $data_survey)->first();
+            $survey = Survey::where('name', $data_survey)->with('question')->first();
         }
 
         if(empty($survey)){
             return redirect('/');
         }
       
-        $questions = Question::where('survey_id', $survey->id)->get();
+        $questions = Question::where('survey_id', $survey->id)->count();
 
-        return view('front.survey', ['questions' => $questions, 'survey' => $survey]);
+        return view('front.survey', ['count' => $questions, 'survey' => $survey]);
     }
 
     /**
@@ -97,6 +98,30 @@ class FrontController extends Controller
 
             }
         }
+
+        if (Cache::has('survey_home') ) {
+            Cache::pull('survey_home');
+        }
+        if(Cache::has('answer_home')){
+            Cache::pull('answer_home');
+        }
+        if(Cache::has('chart6_home')){
+            Cache::pull('chart6_home');
+        }
+        if(Cache::has('chart7_home')){
+            Cache::pull('chart7_home');
+        }
+        
+        if(Cache::has('chart10_home')){
+            Cache::pull('chart10_home');
+        }
+
+        if(Cache::has('chart11_home')){
+            Cache::pull('chart11_home');
+        }
+        
+        
+
         return redirect('/')->with('success', $new_user->link);
     }
 
@@ -112,7 +137,7 @@ class FrontController extends Controller
         $date = new \DateTime($user->created_at);
         $date_time = $date->format('d-m-Y à H:i:s');
 
-        $answers = Answer::where('user_survey_id', $user->id)->get();
+        $answers = Answer::where('user_survey_id', $user->id)->with('question')->get();
 
         return view('front.show', ['answers' => $answers, 'user_date' => $date_time]);
     }
