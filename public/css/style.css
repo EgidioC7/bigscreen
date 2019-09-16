@@ -7,6 +7,10 @@ body {
   font-family:GT-Walsheim-Pro-Bigscreen,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+.admin_bg{
+  background-color: rgba(19, 34, 92,0.85) !important;
+}
+
 .text-uppercase {
   letter-spacing: 0.1em;
 }
