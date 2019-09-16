@@ -13,7 +13,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/custom.js') }}" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="{{asset('js/chart-plugin-labels.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,7 +25,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<body class="<?php echo Request::is('administration/*') ? 'admin_bg' : '' ?>">
 @if(Request::is('administration/*') == false && Route::is('home.*') == false )
     @include('partials.menu')
     <main class="py-5">
