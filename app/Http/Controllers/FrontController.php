@@ -50,7 +50,7 @@ class FrontController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'question_1' => 'required|email',
+            'question_1' => ['required','email','regex:/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/i'],
             'question_2' => 'required|numeric|between:0,99.99',
             'question_3' => 'required',
             'question_4' => 'required',
