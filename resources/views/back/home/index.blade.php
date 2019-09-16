@@ -5,7 +5,7 @@
         @foreach($charts as $chart )
             <div class="col-md-6">
                 <div class="card ">
-                    <div class="card-header ">
+                    <div class="card-header white">
                         <h5 class="card-title">{{$questions_title[$loop->iteration]}}</h5>
                     </div>
                     <div class="card-body white">
