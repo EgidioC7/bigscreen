@@ -37,6 +37,7 @@ class HomeController extends Controller
         $question_chart_6 = Cache::remember($path_6, 60 * 24, function () {
             return $this->pieChart(6);
         });
+
         $pie_chart_6 = $question_chart_6['chart'];
 
         $path_7 = 'chart7_' . $this->prefix_;;
@@ -53,9 +54,8 @@ class HomeController extends Controller
 
         $path_11 = 'chart11_' . $this->prefix_;
         $question_chart_11 = Cache::remember($path_11, 60 * 24, function () {
-            return $this->radarChart(['11', '12', '13', '14', '15']);
+            return $this->radarChart([11, 12, 13, 14, 15]);
         });
-
         $pie_chart_11 = $question_chart_11['chart'];
 
         $questions_title = [
@@ -100,22 +100,29 @@ class HomeController extends Controller
                 [
                     'backgroundColor' => $random_color,
                     'hoverBackgroundColor' => $random_color,
+                    'borderColor' => "#fafafa",
+                    "pointBorderColor" => $random_color,
+                    "pointBackgroundColor" => $random_color,
+                    "pointHoverBackgroundColor" => "#fff",
+                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
                     'data' => array_values($pie_chart['data'])
                 ]
             ])
             ->optionsRaw([
-                'scale' => [
-                    'pointLabels' => [
-                        'fontSize' => 18
-                    ]
-                ],
                 'legend' => [
                     'position' => 'left',
                     'labels' => [
                         'fontColor' => '#fafafa'
                     ]
-                ]
+                ],
+                'plugins' => [
+                    'labels' => [
+                        'fontColor' => '#fafafa'
+                    ]
+                ],
+
             ]);
+
 
         $all_chart_data = ['chart' => $chartjs, 'title' => $question->title];
 
@@ -158,53 +165,45 @@ class HomeController extends Controller
 
         $radar_chart = [];
 
-        $radar_data = [];
+        $radar_chart['label'] = $question_id;
 
         for ($i = 1; $i <= 5; $i++) {
-            $radar_chart['label'][] = $i;
+            $radar_chart['choice'][] = $i;
         }
 
-        for ($i = reset($question_id); $i <= end($question_id); $i++) {
-            foreach ($radar_chart['label'] as $label) {
-                $radar_chart['data'][$i][$label] = 0;
+
+        foreach ($radar_chart['choice'] as $label) {
+            $radar_chart['data'][$label] = 0;
+        }
+
+
+        foreach ($answers as $answer) {
+            $search_value = array_search($answer->value, $radar_chart['choice']);
+            if ($search_value !== false) {
+                $radar_chart['data'][$answer->value] += 1;
             }
         }
 
-        for ($i = reset($question_id); $i <= end($question_id); $i++) {
-            foreach ($answers as $answer) {
-                if ($answer->question->id === (int)$i) {
-                    $search_value = array_search($answer->value, $radar_chart['label']);
-                    if ($search_value !== false) {
-                        $radar_chart['data'][$i][$answer->value] += 1;
-                    }
-                }
-            }
-            $random_rgba = $this->random_rgba();
-
-            $radar_data[] = [
-                "label" => "Question $i",
-                'borderColor' => "$random_rgba",
-                "pointBorderColor" => "$random_rgba",
-                "pointBackgroundColor" => "$random_rgba",
-                "pointHoverBackgroundColor" => "#fff",
-                "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                'data' => array_values($radar_chart['data'][$i])
-            ];
-        }
+        $random_rgba = $this->random_rgba();
 
         $chartjs = app()->chartjs
             ->name("question_radar")
             ->type('radar')
             ->size(['width' => 750, 'height' => 700])
             ->labels($radar_chart['label'])
-            ->datasets($radar_data)
+            ->datasets([
+                [
+                    "label" => "Question 11 à 15",
+                    'borderColor' => $random_rgba,
+                    "pointBorderColor" => $random_rgba,
+                    "pointBackgroundColor" => $random_rgba,
+                    "pointHoverBackgroundColor" => "#fff",
+                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                    'data' => array_values($radar_chart['data'])
+                ]
+            ])
             ->optionsRaw([
                 'scale' => [
-                    'ticks' => [
-                        'beginAtZero' => true,
-                        'min' => 0,
-                        'stepSize' => 1
-                    ],
                     'pointLabels' => [
                         'fontSize' => 18,
                         'fontColor' => "#fafafa"
