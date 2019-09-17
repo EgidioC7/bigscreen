@@ -37,7 +37,6 @@ class HomeController extends Controller
         $question_chart_6 = Cache::remember($path_6, 60 * 24, function () {
             return $this->pieChart(6);
         });
-
         $pie_chart_6 = $question_chart_6['chart'];
 
         $path_7 = 'chart7_' . $this->prefix_;;
@@ -110,7 +109,6 @@ class HomeController extends Controller
             ])
             ->optionsRaw([
                 'legend' => [
-                    'position' => 'left',
                     'labels' => [
                         'fontColor' => '#fafafa'
                     ]
@@ -190,7 +188,7 @@ class HomeController extends Controller
             ->name("question_radar")
             ->type('radar')
             ->size(['width' => 750, 'height' => 700])
-            ->labels($radar_chart['label'])
+            ->labels($radar_chart['choice'])
             ->datasets([
                 [
                     "label" => "Question 11 à 15",
