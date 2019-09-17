@@ -29,7 +29,9 @@ class AnswerTableSeeder extends Seeder
 
                     case 3:
                         $choice = ['Homme', 'Femme', 'Préfère ne pas répondre'];
-                        $value = array_rand($choice, 1);
+                        $index = array_rand($choice, 1);
+                        $value = $choice[$index];
+                        
                         DB::table('answers')->insert([
                             'question_id' => $i,
                             'user_survey_id' => $user_survey_id,
