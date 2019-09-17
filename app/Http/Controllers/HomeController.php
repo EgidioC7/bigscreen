@@ -34,25 +34,25 @@ class HomeController extends Controller
         $questions_title = [];
 
         $path_6 = 'chart6_' . $this->prefix_;
-        $question_chart_6 = $this->pieChart(6);
-    
+        $question_chart_6 = $this->pieChart(6); // Generate a pie chart for the question 6
+
         $pie_chart_6 = $question_chart_6['chart'];
 
         $path_7 = 'chart7_' . $this->prefix_;;
         $question_chart_7 = Cache::remember($path_7, 60 * 24, function () {
-            return $this->pieChart(7);
+            return $this->pieChart(7); // // Generate a pie chart for the question 7
         });
         $pie_chart_7 = $question_chart_7['chart'];
 
         $path_10 = 'chart10_' . $this->prefix_;
         $question_chart_10 = Cache::remember($path_10, 60 * 24, function () {
-            return $this->pieChart(10);
+            return $this->pieChart(10); // Generate a pie chart for the question 10
         });
         $pie_chart_10 = $question_chart_10['chart'];
 
         $path_11 = 'chart11_' . $this->prefix_;
         $question_chart_11 = Cache::remember($path_11, 60 * 24, function () {
-            return $this->radarChart([11, 12, 13, 14, 15]);
+            $this->radarChart([11, 12, 13, 14, 15]);  // Generate a radar chart for question 11 to 15
         });
         $pie_chart_11 = $question_chart_11['chart'];
 
@@ -92,7 +92,7 @@ class HomeController extends Controller
         $chartjs = app()->chartjs
             ->name("question_$question_id")
             ->type('pie')
-            ->size(['width' => 750, 'height' => 700])
+            ->size(['width' => 750, 'height' => 750])
             ->labels($pie_chart['label'])
             ->datasets([
                 [
@@ -133,7 +133,6 @@ class HomeController extends Controller
 
         for ($i = 0; $i < $value; $i++) {
             $hex = '#';
-
 
             //Create a loop.
             foreach (array('r', 'g', 'b') as $color) {
@@ -186,7 +185,7 @@ class HomeController extends Controller
         $chartjs = app()->chartjs
             ->name("question_radar")
             ->type('radar')
-            ->size(['width' => 750, 'height' => 700])
+            ->size(['width' => 750, 'height' => 750])
             ->labels($radar_chart['choice'])
             ->datasets([
                 [
@@ -204,12 +203,18 @@ class HomeController extends Controller
                     'pointLabels' => [
                         'fontSize' => 18,
                         'fontColor' => "#13225c"
+                    ],
+                    'gridLines' => [
+                        'color' => 'indigo'
+                    ],
+                    'ticks' => [
+                        'beginAtZero' => true,
                     ]
                 ],
                 'legend' => [
                     'position' => 'left',
                     'labels' => [
-                        'fontColor' => '#fafafa'
+                        'fontColor' => '#13225c'
                     ]
                 ]
             ]);
