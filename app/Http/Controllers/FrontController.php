@@ -100,6 +100,7 @@ class FrontController extends Controller
             }
         }
 
+        // Remove all cache
         if (Cache::has('survey_home')) {
             Cache::pull('survey_home');
         }
@@ -134,6 +135,7 @@ class FrontController extends Controller
             return redirect('/');
         }
 
+        // Reformat date
         $date = new \DateTime($user->created_at);
         $date_time = $date->format('d-m-Y à H:i:s');
 
