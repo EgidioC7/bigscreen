@@ -13,14 +13,9 @@ class SurveyTableSeeder extends Seeder
     {
         DB::table('surveys')->insert([
             [
-                'name' => 'first',
-                'created_at' => '2019-09-13 01:49:17',
-                'updated_at' => '2019-09-13 01:49:17'
-            ],
-            [
-                'name' => 'second',
+                'name' => 'Sondage Bigscreen',
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ]
         ]);
     }
