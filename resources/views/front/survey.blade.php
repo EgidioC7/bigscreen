@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-
+    @include('front.partials.flash')
     <!-- Default form contact -->
     <p class="text-white text-center font-weight-bold text-uppercase px-3 small py-4 mb-0">Merci de répondre à toute les
         questions et de valider le formulaire en bas de page</p>
