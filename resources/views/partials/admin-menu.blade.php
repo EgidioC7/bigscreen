@@ -52,3 +52,53 @@
     </ul>
 </div>
 <!-- End vertical navbar -->
+
+<!-- Mobile nav -->
+
+<!--Navbar-->
+<nav id="mobile" class="navbar bg-dark shadow">
+
+  <!-- Navbar brand -->
+ <img src="{{asset('images/bigscreen_logo.png')}}" alt="..." width="100">
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler third-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent22"
+    aria-controls="navbarSupportedContent22" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="animated-icon3"><span></span><span></span><span></span></div>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent22">
+
+    <!-- Links -->
+    <ul class="nav flex-column mb-0">
+        <li class="nav-item">
+            <a href="{{url('administration/accueil')}}"
+               class="nav-link font-italic">
+                <i class="fa fa-home mr-3 text-primary fa-fw"></i>
+                Accueil
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('administration/questionnaire')}}"
+               class="nav-link font-italic">
+                <i class="fa fa-question mr-3 text-primary fa-fw"></i>
+                Questionnaire
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('administration/reponses')}}"
+               class="nav-link font-italic ">
+                <i class="fa fa-comment-dots mr-3 text-primary fa-fw"></i>
+                Réponses
+            </a>
+        </li>
+    </ul>
+    <!-- Links -->
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+<!-- end nav mobile -->
