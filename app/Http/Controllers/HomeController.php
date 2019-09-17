@@ -34,9 +34,8 @@ class HomeController extends Controller
         $questions_title = [];
 
         $path_6 = 'chart6_' . $this->prefix_;
-        $question_chart_6 = Cache::remember($path_6, 60 * 24, function () {
-            return $this->pieChart(6);
-        });
+        $question_chart_6 = $this->pieChart(6);
+    
         $pie_chart_6 = $question_chart_6['chart'];
 
         $path_7 = 'chart7_' . $this->prefix_;;
@@ -110,7 +109,7 @@ class HomeController extends Controller
             ->optionsRaw([
                 'legend' => [
                     'labels' => [
-                        'fontColor' => '#fafafa'
+                        'fontColor' => '#13225c'
                     ]
                 ],
                 'plugins' => [
@@ -204,7 +203,7 @@ class HomeController extends Controller
                 'scale' => [
                     'pointLabels' => [
                         'fontSize' => 18,
-                        'fontColor' => "#fafafa"
+                        'fontColor' => "#13225c"
                     ]
                 ],
                 'legend' => [
