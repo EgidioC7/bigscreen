@@ -96,6 +96,22 @@
     </ul>
     <!-- Links -->
 
+    <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Profile</p>
+
+    <ul class="nav flex-column mb-0">
+        @if(Auth::check())
+            <li>
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                            class="fa fa-sign-out-alt mr-3 text-primary fa-fw"></i>{{ __('Logout') }}
+                </a>
+            </li>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        @endif
+    </ul>
+
   </div>
   <!-- Collapsible content -->
 
