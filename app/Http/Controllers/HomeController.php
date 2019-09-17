@@ -52,7 +52,7 @@ class HomeController extends Controller
 
         $path_11 = 'chart11_' . $this->prefix_;
         $question_chart_11 = Cache::remember($path_11, 60 * 24, function () {
-            $this->radarChart([11, 12, 13, 14, 15]);  // Generate a radar chart for question 11 to 15
+            return $this->radarChart([11, 12, 13, 14, 15]);  // Generate a radar chart for question 11 to 15
         });
         $pie_chart_11 = $question_chart_11['chart'];
 
